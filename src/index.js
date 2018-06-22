@@ -26,7 +26,7 @@ const setCameraAspect = () => {
 
 };
 
-export default class App {
+module.exports = class App {
 
   constructor( THREE, canvas ) {
 
@@ -211,7 +211,8 @@ export default class App {
 
   initControls( OrbitControls, listenerElem ) {
 
-    this.controls = new OrbitControls( this.camera, listenerElem || _canvas );
+    if ( typeof THREE.OrbitControls === 'function' ) this.controls = new THREE.OrbitControls( this.camera, listenerElem || _canvas );
+    else if ( typeof OrbitControls === 'function' ) this.controls = new OrbitControls( this.camera, listenerElem || _canvas );
 
   }
 
@@ -307,4 +308,4 @@ export default class App {
 
   }
 
-}
+};

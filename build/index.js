@@ -1,4 +1,4 @@
-var output = (function () {
+(function () {
 	'use strict';
 
 	function createCommonjsModule(fn, module) {
@@ -161,7 +161,7 @@ var output = (function () {
 	  }
 	};
 
-	var App = function () {
+	module.exports = function () {
 	  function App(THREE, canvas) {
 	    _classCallCheck(this, App);
 
@@ -452,7 +452,5 @@ var output = (function () {
 
 	  return App;
 	}();
-
-	return App;
 
 }());
