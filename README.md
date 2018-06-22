@@ -84,6 +84,18 @@ app.camera.far = 100;
 app.camera.updateProjectionMatrix();
 ```
 
+### Fit camera to object
+
+To automatically zoom an object into view, use the `app.fitCameraToObject( object, zOffset )` method.
+
+```js
+app.add( object );
+const zOffset = 1.5;
+app.fitCameraToObject( object, zOffset );
+```
+
+This also sets the camera's near and far values, and if you are using OrbitControls then it also sets the control's target to the object position and updates `controls.maxDistance`. These are all set somewhat conservatively for maximum performance, which generally works but may cause problems if your model is animated and moves large distances.
+
 ## Orbit Controls
 
 The app can automatically set up OrbitControls for you, however you will need to include the script seperately, either as as a `<script src="OrbitControls.js"></script>`, or
