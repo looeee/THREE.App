@@ -1,0 +1,44 @@
+{
+  "name": "three-app",
+  "version": "0.9.0",
+  "description": "A simple wrapper for three.js that abstracts away most of the basic setup",
+  "main": "build/index.js",
+  "scripts": {
+    "build": "node build.js",
+    "prepublish": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/looeee/npm-three-app.git"
+  },
+  "keywords": [
+    "three.js",
+    "threejs",
+    "webgl"
+  ],
+  "author": "Lewy Blue <welcome@discoverthreejs.com> (https://discoverthreejs.com)",
+  "license": "MIT",
+  "homepage": "https://discoverthreejs.com/",
+  "bugs": {
+    "url": "https://github.com/looeee/npm-three-app/issues"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.12.0",
+    "rollup": "^0.59.4",
+    "rollup-plugin-babel": "^3.0.4",
+    "rollup-plugin-commonjs": "^9.1.3",
+    "rollup-plugin-node-resolve": "^3.3.0",
+    "watch": "^1.0.2"
+  },
+  "dependencies": {
+    "doctrine": "^2.1.0",
+    "estree-walker": "^0.2.1",
+    "esutils": "^2.0.2",
+    "fast-deep-equal": "^1.1.0",
+    "three-time": "^0.9.4"
+  }
+}

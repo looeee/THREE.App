@@ -1,0 +1,40 @@
+
+{
+  "extends": "airbnb-base",
+  "env": {
+    "browser": true
+  },
+  "globals": {
+    "THREE": true
+  },
+  "rules": {
+    "no-new": 0,
+    "no-console": 0,
+    "linebreak-style": 0,
+    "import/no-extraneous-dependencies": 0,
+    "space-in-parens": [
+      "error",
+      "always"
+    ],
+    "prefer-template": 0,
+    "padded-blocks": 0,
+    "arrow-body-style": 0,
+    "no-multi-assign": 0,
+    "no-underscore-dangle": 0,
+    "no-mixed-operators": 0,
+    "no-bitwise": 0,
+    "no-plusplus": 0,
+    "max-len": 0,
+    "import/extensions": 0,
+    "import/no-unresolved": 0,
+    "func-names": 0,
+    "no-param-reassign": 0,
+    "radix": 0,
+    "computed-property-spacing": 0,
+    "one-var-declaration-per-line": 0,
+    "array-bracket-spacing": 0,
+    "class-methods-use-this": 0,
+    "no-restricted-syntax": 0,
+    "prefer-destructuring": 0
+  }
+}
