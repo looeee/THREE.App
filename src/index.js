@@ -1,5 +1,5 @@
 import Time from 'three-time';
-
+import saveDataURI from './saveDataURI.js';
 /**
  * @author Lewy Blue / https://github.com/looeee
  *
@@ -26,6 +26,18 @@ const setCameraAspect = () => {
 
 };
 
+const setPixelRatio = () => {
+
+  if ( !_renderer ) return;
+
+  if ( _renderer.getPixelRatio() !== window.devicePixelRatio ) {
+
+    _renderer.setPixelRatio( window.devicePixelRatio );
+
+  }
+
+};
+
 module.exports = class App {
 
   constructor( THREE, canvas ) {
@@ -36,6 +48,9 @@ module.exports = class App {
     else console.warn( 'Canvas is undefined! ' );
 
     this.canvas = _canvas;
+
+    // to avoid page pulling
+    this.canvas.addEventListener( 'touchstart', e => e.preventDefault() );
 
     this.autoRender = true;
     this.autoResize = true;
@@ -228,32 +243,31 @@ module.exports = class App {
 
     const onWindowResize = () => {
 
-      if ( !self.autoResize ) {
-
-        self.onWindowResize();
-        return;
-
-      }
+      if ( !self.autoResize ) return;
 
       // don't do anything if the camera doesn't exist yet
       if ( !_camera ) return;
 
-      if ( _camera.type !== 'PerspectiveCamera' ) {
+      if ( !_camera.isPerspectiveCamera ) {
 
-        console.warn( 'App: AutoResize only works with PerspectiveCamera' );
+        console.warn( 'App: AutoResize only works with PerspectiveCamera, you will need to set up a manual resize function for OrthographicCamera' );
         return;
 
       }
 
       setCameraAspect();
       setRendererSize();
+      setPixelRatio();
 
       onResize();
+
+      // draw a frame to prevent visual jank
+      _renderer.render( self.scene, self.camera );
 
     };
 
     window.addEventListener( 'resize', onWindowResize, false );
-
+    window.addEventListener( 'orientationchange', onWindowResize );
   }
 
   fitCameraToObject( object, zOffset ) {
@@ -305,6 +319,32 @@ module.exports = class App {
     }
 
     return boundingBox;
+
+  }
+
+  takeScreenshot( width, height ) {
+
+    // set camera and renderer to desired screenshot dimension if provided
+    if ( width && height ) {
+      _camera.aspect = width / height;
+      _camera.updateProjectionMatrix();
+      _renderer.setSize( width, height );
+
+      // draw a frame at the new width and height
+      _renderer.render( _scene, _camera, null, false );
+    }
+
+    // save the image
+    saveDataURI( _renderer.domElement.toDataURL( 'image/png' ) );
+
+    // reset the width and height if we changed them
+    if ( width && height ) {
+
+      setCameraAspect();
+      setRendererSize();
+      setPixelRatio();
+
+    }
 
   }
 

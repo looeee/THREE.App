@@ -133,10 +133,44 @@
 	}());
 	});
 
+	// functions borrowed from https://github.com/mattdesl/threejs-app/blob/master/src/webgl/WebGLApp.js
+
+	function dataURIToBlob(dataURI) {
+	  var binStr = window.atob(dataURI.split(',')[1]);
+	  var len = binStr.length;
+	  var arr = new Uint8Array(len);
+	  for (var i = 0; i < len; i++) {
+	    arr[i] = binStr.charCodeAt(i);
+	  }
+	  return new window.Blob([arr]);
+	}
+
+	function defaultFileName(ext) {
+	  var str = new Date().toLocaleDateString() + ' at ' + new Date().toLocaleTimeString() + ext;
+	  return str.replace(/\//g, '-').replace(/:/g, '.');
+	}
+
+	function saveDataURI(dataURI, name) {
+
+	  if (!name) name = defaultFileName('.png');
+	  var blob = dataURIToBlob(dataURI);
+
+	  // force download
+	  var link = document.createElement('a');
+	  link.download = name;
+	  link.href = window.URL.createObjectURL(blob);
+	  link.onclick = function () {
+	    window.setTimeout(function () {
+	      window.URL.revokeObjectURL(blob);
+	      link.removeAttribute('href');
+	    }, 500);
+	  };
+	  link.click();
+	}
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
 	/**
 	 * @author Lewy Blue / https://github.com/looeee
 	 *
@@ -161,6 +195,16 @@
 	  }
 	};
 
+	var setPixelRatio = function setPixelRatio() {
+
+	  if (!_renderer) return;
+
+	  if (_renderer.getPixelRatio() !== window.devicePixelRatio) {
+
+	    _renderer.setPixelRatio(window.devicePixelRatio);
+	  }
+	};
+
 	module.exports = function () {
 	  function App(THREE, canvas) {
 	    _classCallCheck(this, App);
@@ -170,6 +214,11 @@
 	    if (canvas !== undefined) _canvas = canvas;else console.warn('Canvas is undefined! ');
 
 	    this.canvas = _canvas;
+
+	    // to avoid page pulling
+	    this.canvas.addEventListener('touchstart', function (e) {
+	      return e.preventDefault();
+	    });
 
 	    this.autoRender = true;
 	    this.autoResize = true;
@@ -297,7 +346,7 @@
 	    key: 'initControls',
 	    value: function initControls(OrbitControls, listenerElem) {
 
-	      this.controls = new OrbitControls(this.camera, listenerElem || _canvas);
+	      if (typeof THREE.OrbitControls === 'function') this.controls = new THREE.OrbitControls(this.camera, listenerElem || _canvas);else if (typeof OrbitControls === 'function') this.controls = new OrbitControls(this.camera, listenerElem || _canvas);
 	    }
 	  }, {
 	    key: 'initOnWindowResize',
@@ -315,28 +364,29 @@
 
 	      var onWindowResize = function onWindowResize() {
 
-	        if (!self.autoResize) {
-
-	          self.onWindowResize();
-	          return;
-	        }
+	        if (!self.autoResize) return;
 
 	        // don't do anything if the camera doesn't exist yet
 	        if (!_camera) return;
 
-	        if (_camera.type !== 'PerspectiveCamera') {
+	        if (!_camera.isPerspectiveCamera) {
 
-	          console.warn('App: AutoResize only works with PerspectiveCamera');
+	          console.warn('App: AutoResize only works with PerspectiveCamera, you will need to set up a manual resize function for OrthographicCamera');
 	          return;
 	        }
 
 	        setCameraAspect();
 	        setRendererSize();
+	        setPixelRatio();
 
 	        onResize();
+
+	        // draw a frame to prevent visual jank
+	        _renderer.render(self.scene, self.camera);
 	      };
 
 	      window.addEventListener('resize', onWindowResize, false);
+	      window.addEventListener('orientationchange', onWindowResize);
 	    }
 	  }, {
 	    key: 'fitCameraToObject',
@@ -387,6 +437,31 @@
 	      }
 
 	      return boundingBox;
+	    }
+	  }, {
+	    key: 'takeScreenshot',
+	    value: function takeScreenshot(width, height) {
+
+	      // set camera and renderer to desired screenshot dimension if provided
+	      if (width && height) {
+	        _camera.aspect = width / height;
+	        _camera.updateProjectionMatrix();
+	        _renderer.setSize(width, height);
+
+	        // draw a frame at the new width and height
+	        _renderer.render(_scene, _camera, null, false);
+	      }
+
+	      // save the image
+	      saveDataURI(_renderer.domElement.toDataURL('image/png'));
+
+	      // reset the width and height if we changed them
+	      if (width && height) {
+
+	        setCameraAspect();
+	        setRendererSize();
+	        setPixelRatio();
+	      }
 	    }
 	  }, {
 	    key: 'averageFrameTime',
