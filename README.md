@@ -9,6 +9,8 @@ A simple wrapper for the THREE global object that simplifies setting up a three.
 
 ## Basic setup
 
+This is the basic minimal setup for an App, it will create a [PerspectiveCamera](https://threejs.org/docs/#api/cameras/PerspectiveCamera) and automatically handle resizing on browser window size changes.
+
 ### HTML
 
 ```html
@@ -16,8 +18,6 @@ A simple wrapper for the THREE global object that simplifies setting up a three.
 ```
 
 ### JavaScript
-
-This is the basic minimal setup for an App, it will create a [PerspectiveCamera](https://threejs.org/docs/#api/cameras/PerspectiveCamera) and automatically handle resizing on browser window size changes.
 
 ```js
 import * as THREE from 'three';
