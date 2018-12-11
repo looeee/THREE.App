@@ -1,6 +1,6 @@
 {
   "name": "three-app-demo",
-  "version": "1.0.0",
+  "version": "1.0.4",
   "description": "Demo for NPM module three-app, a simple wrapper for three.js",
   "main": "index.html",
   "repository": {
@@ -28,7 +28,7 @@
     "build": "parcel build index.html"
   },
   "dependencies": {
-    "three-app": "^1.0.3"
+    "three-app": "^1.0.4"
   },
   "devDependencies": {
     "parcel-bundler": "^1.6.1"
