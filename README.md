@@ -2,16 +2,25 @@
 
 A simple wrapper for the THREE global object that simplifies setting up a three.js app.
 
-## Tested up to three.js r95
+## Features
+
+* Automatics resizing
+* VR ready
+* PerpectiveCamera
+* WebGLRenderer
+* glTF Loader
+* Orbit Controls
+* Scene will match the size of the containing div, easy to style with CSS
 
 ## Installation
 
-  `npm install three`
   `npm install three-app`
 
-## Basic setup
+## Demo
 
-This is the basic minimal setup for an App, it will create a [PerspectiveCamera](https://threejs.org/docs/#api/cameras/PerspectiveCamera) and automatically handle resizing on browser window size changes.
+[Codesandbox Demo](https://codesandbox.io/s/github/looeee/npm-three-app/tree/master/demo)
+
+## Basic setup
 
 ### HTML
 
@@ -32,10 +41,10 @@ This is the basic minimal setup for an App, it will create a [PerspectiveCamera]
     <!--
 
       For the time being, importing three.js addons such as OrbitControls and GLTFLoader
-      as ES6 modules is a little problematic.
+      as ES6 modules is a bit complex.
 
       three-app will work equally well whichever method you use, so for simplicity we'll
-      demonstrate loading as script tag from the GitHub CDN (via threejs.org) here
+      demonstrate loading as script tag from the GitHub CDN (via threejs.org) here.
 
     -->
 
@@ -51,7 +60,8 @@ This is the basic minimal setup for an App, it will create a [PerspectiveCamera]
       <!-- This div will hold our scene-->
     </div>
 
-    <script></script>
+    <!-- Your app -->
+    <script src="app.js"></script>
 
   </body>
 
@@ -60,7 +70,7 @@ This is the basic minimal setup for an App, it will create a [PerspectiveCamera]
 
 ### CSS
 
-The following CSS will make the scene take up the full screen
+The following CSS will make the scene take up the full screen.
 
 ``` css
 body {
@@ -76,6 +86,12 @@ body {
 ```
 
 ### JavaScript
+
+The App handles setting up all the boilerplate for us, leaving us free to concentrate on lighting, models and positions.
+
+It will also set up [OrbitControls(https://threejs.org/docs/#examples/controls/OrbitControls) as `App.controls` and the [GLTFLoader](https://threejs.org/docs/#examples/loaders/GLTFLoader) as `app.loader`.
+
+If you don't need controls or the loader, just leave out the scripts and they will be gracefully skipped. Simple!
 
 ```js
 import App from 'three-app';
