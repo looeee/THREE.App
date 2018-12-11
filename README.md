@@ -192,7 +192,7 @@ app.container.addEventListener( 'click', ( e ) => {
 
 ## The Camera
 
-By default a Perspective Camera with the following setting is created:
+By default a [PerspectiveCamera](https://threejs.org/docs/#api/en/cameras/PerspectiveCamera) with the following setting is created:
 
 * Field of View: 35,
 * Aspect ratio: container.clientWidth / container.clientHeight
@@ -205,19 +205,20 @@ You can change the camera entirely, for example to an Orthographic Camera
 app.camera = new THREE.OrthographicCamera( ... );
 ```
 
-Or you can change setting for the default camera, but remember to all `updateProjectMatrix` after you change them!
+Or you can change setting for the default camera, but remember to call `updateProjectMatrix` after you change them! Checkout out Discover three.js [Chapter 1.1](https://discoverthreejs.com/book/1-first-steps/1-first-scene/) if you need a refresher on how the camera's frustum work.
 
 ```js
 app.camera.fov = 60;
 app.camera.near = 10;
 app.camera.far = 100;
 
+// update the camera's frustum.
 app.camera.updateProjectionMatrix();
 ```
 
 ## The renderer
 
-Internally, a WebGLRenderer with the following settings is created:
+A [WebGLRenderer](https://threejs.org/docs/#api/en/renderers/WebGLRenderer) with the following settings is created:
 
 * antialias: true
 * alpha: true
@@ -242,7 +243,7 @@ app.render = () => {
 
 ## The animation loop
 
-three-app uses a "Game Loop" concept to render each frame. This means that the animation loop is divided into two parts, both called once per frame:
+three-app uses a "Game Loop" concept to render each frame. This means that the animation loop is divided into two parts, each called once per frame:
 
 * `update()`: handle updating of any animations, physics etc
 * `render()`: render the scene
