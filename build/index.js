@@ -9,7 +9,7 @@ var output = (function () {
    * @author Lewy Blue / https://discoverthreejs.com
    *
    */
-  var src = function () {
+  var App = function () {
     function App(containerID) {
       var _this = this;
 
@@ -148,6 +148,6 @@ var output = (function () {
     return App;
   }();
 
-  return src;
+  return App;
 
 }());

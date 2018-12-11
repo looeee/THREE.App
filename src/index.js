@@ -2,7 +2,7 @@
  * @author Lewy Blue / https://discoverthreejs.com
  *
  */
-module.exports = class App {
+export default class App {
 
   constructor( containerID ) {
 
