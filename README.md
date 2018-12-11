@@ -195,8 +195,8 @@ app.container.addEventListener( 'click', ( e ) => {
 By default a Perspective Camera with the following setting is created:
 
 * Field of View: 35,
-* Aspect ratio: canvas.clientWidth / canvas.clientHeight
-* 0.1
+* Aspect ratio: container.clientWidth / container.clientHeight
+* 1
 * 1000
 
 You can change the camera entirely, for example to an Orthographic Camera
@@ -223,11 +223,11 @@ Internally, a WebGLRenderer with the following settings is created:
 * alpha: true
 * powerPreference: 'high-performance'
 
-If you want to use other options, just set `app.renderer = new WebGLRenderer( yourOptions )`.
+If you want to use other options, just set `app.renderer = new THREE.WebGLRenderer( { yourOptions } )`.
 
 ## Rendering
 
-By default, app.render() is called automatically each frame. This just calls `app.renderer.render( app.scene, app.camera )`. If you need to overwrite this, for example to add post-processing, then you can overwrite `app.render()`:
+By default, `app.render()` is called automatically each frame. This just calls `app.renderer.render( app.scene, app.camera )`. If you need to overwrite this, for example to add post-processing, then you can overwrite `app.render()`:
 
 ```js
 // include post processing scripts and set up post processing
