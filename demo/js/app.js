@@ -1,4 +1,4 @@
-import App from 'three-app';
+import App from '../../build/index.js';
 
 const app = new App();
 

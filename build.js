@@ -19,11 +19,8 @@ const defaultPlugins = [
   commonjs(),
   babel( {
     compact: false,
-    exclude: ['node_modules/**', 'src/shaders/**'],
+    exclude: ['node_modules/**'],
     babelrc: false,
-    // plugins: [
-    //   'external-helpers',
-    // ],
     presets: [
       ['env',
         {
@@ -50,7 +47,7 @@ const inputOptions = () => {
 const outputOptions = () => {
   return {
     file: outputFile,
-    format: 'iife',
+    format: 'umd',
     name: 'output',
   };
 };
