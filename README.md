@@ -16,7 +16,7 @@ A simple wrapper for [three.js](https://threejs.org/) that simplifies setting sc
 
   `npm install three-app`
 
-## [Demo](https://codesandbox.io/s/github/looeee/npm-three-app/tree/master/demo)
+## [Demo](https://codesandbox.io/s/github/looeee/npm-three-app/tree/master/demo?module=%2Fjs%2Fapp.js)
 
 ## Basic setup
 
