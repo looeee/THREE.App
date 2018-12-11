@@ -53,9 +53,7 @@ var output = (function () {
         // Case 1: controls loaded via <script> tag
         if (typeof THREE.OrbitControls === 'function') this.controls = new THREE.OrbitControls(this.camera, this.container);
         // Case 2: controls loaded as ES6 module
-        else if (typeof OrbitControls === 'function') this.controls = new OrbitControls(this.camera, this.container);else {
-            console.error('Couldn\'t find the glTFLoader, please check that you have included the script correctly!');
-          }
+        else if (typeof OrbitControls === 'function') this.controls = new OrbitControls(this.camera, this.container);else return;
 
         // gives the controls a feeling of "weight"
         this.controls.enableDamping = true;
@@ -64,9 +62,7 @@ var output = (function () {
       key: 'initLoader',
       value: function initLoader() {
 
-        if (typeof THREE.GLTFLoader === 'function') this.loader = new THREE.GLTFLoader();else if (typeof GLTFLoader === 'function') this.loader = new GLTFLoader();else {
-          console.error('Couldn\'t find the glTFLoader, please check that you have included the script correctly!');
-        }
+        if (typeof THREE.GLTFLoader === 'function') this.loader = new THREE.GLTFLoader();else if (typeof GLTFLoader === 'function') this.loader = new GLTFLoader();
       }
     }, {
       key: 'initRenderer',

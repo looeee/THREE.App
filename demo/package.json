@@ -1,6 +1,6 @@
 {
-  "name": "Discoverthreejs.com - three-app module demo",
-  "version": "1.1.0",
+  "name": "three-app-demo",
+  "version": "1.0.0",
   "description": "Demo for NPM module three-app, a simple wrapper for three.js",
   "main": "index.html",
   "repository": {
@@ -13,8 +13,8 @@
     "animation",
     "javascript",
     "examples",
-    "tutorials",
-    "blog",
+    "module",
+    "boilerplate",
     "book"
   ],
   "author": "Lewy Blue",
@@ -28,7 +28,6 @@
     "build": "parcel build index.html"
   },
   "dependencies": {
-    "three": "^0.99.0",
     "three-app": "^1.0.0"
   },
   "devDependencies": {
