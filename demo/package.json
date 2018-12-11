@@ -1,0 +1,37 @@
+{
+  "name": "Discoverthreejs.com - three-app module demo",
+  "version": "1.1.0",
+  "description": "Demo for NPM module three-app, a simple wrapper for three.js",
+  "main": "index.html",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/looeee/discoverthree.com-examples.git"
+  },
+  "keywords": [
+    "three.js",
+    "web",
+    "animation",
+    "javascript",
+    "examples",
+    "tutorials",
+    "blog",
+    "book"
+  ],
+  "author": "Lewy Blue",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/looeee/three-app/issues"
+  },
+  "homepage": "https://discoverthreejs.com",
+  "scripts": {
+    "start": "parcel index.html --open",
+    "build": "parcel build index.html"
+  },
+  "dependencies": {
+    "three": "^0.99.0",
+    "three-app": "^1.0.0"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.6.1"
+  }
+}

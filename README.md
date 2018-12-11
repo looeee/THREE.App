@@ -2,10 +2,12 @@
 
 A simple wrapper for the THREE global object that simplifies setting up a three.js app.
 
+## Tested up to three.js r95
+
 ## Installation
 
-  `npm install three-app`
   `npm install three`
+  `npm install three-app`
 
 ## Basic setup
 
@@ -14,49 +16,164 @@ This is the basic minimal setup for an App, it will create a [PerspectiveCamera]
 ### HTML
 
 ```html
-<canvas id="my-canvas"></canvas>
+<!DOCTYPE html>
+<html>
+
+  <head>
+
+    <title>Discoverthreejs.com - Ch 2.2</title>
+
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+
+    <meta charset="UTF-8" />
+
+    <link href="styles/main.css" rel="stylesheet" type="text/css">
+
+    <!--
+
+      For the time being, importing three.js addons such as OrbitControls and GLTFLoader
+      as ES6 modules is a little problematic.
+
+      three-app will work equally well whichever method you use, so for simplicity we'll
+      demonstrate loading as script tag from the GitHub CDN (via threejs.org) here
+
+    -->
+
+    <script src="https://threejs.org/build/three.js"></script>
+    <script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://threejs.org/examples/js/loaders/GLTFLoader.js"></script>
+
+  </head>
+
+  <body>
+
+    <div id="container">
+      <!-- This div will hold our scene-->
+    </div>
+
+    <script></script>
+
+  </body>
+
+</html>
+```
+
+### CSS
+
+The following CSS will make the scene take up the full screen
+
+``` css
+body {
+  margin: 0px;
+  overflow: hidden;
+}
+
+#container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
 ```
 
 ### JavaScript
 
 ```js
-import * as THREE from 'three';
 import App from 'three-app';
 
-const canvas = document.querySelector( '#my-canvas' );
+const app = new App( 'container' );
 
-const app = new App( THREE, canvas );
+app.scene.background = new THREE.Color( 0x8FBCD4 );
+app.camera.position.set( -50, 50, 150 );
 
-// add a simple purple cube
-const geometry = new THREE.BoxBufferGeometry( 1, 1, 1 );
-const material = new THREE.MeshBasicMaterial( { color: 0xff00ff } );
-const cube = new THREE.Mesh( geometry, material );
-app.add( cube );
+function initLights() {
 
-const rotateCube = ( cube ) => {
-  cube.rotation.x += 0.01;
-  cube.rotation.y += 0.01;
-  cube.rotation.z += 0.01;
+  const ambientLight = new THREE.AmbientLight( 0xffffff, 1 );
+  app.scene.add( ambientLight );
+
+  const frontLight = new THREE.DirectionalLight( 0xffffff, 1 );
+  frontLight.position.set( 10, 10, 10 );
+
+  const backLight = new THREE.DirectionalLight( 0xffffff, 1 );
+  backLight.position.set( -10, 10, -10 );
+
+  app.scene.add( frontLight, backLight );
+
 }
 
-// register a function to be called once per frame, you can
-// add as many functions as you like this way
-app.registerOnUpdateFunction( rotateCube );
+// create a simple rotating box mesh
+function initMeshes() {
 
-// start the app running
-this.app.play();
+  const geo = new THREE.BoxBufferGeometry( 2, 2, 2 );
+  const mat = new THREE.MeshBasicMaterial();
 
-// a running total of the total frames rendered so far
-const howManyFrames = app.frameCount;
+  const mesh = new THREE.Mesh( geo, mat );
 
-// get the frames per second since app.play was called
-const fps = app.averageFrameTime;
+  // three-app will look for userData.onUpdate on each object in the scene and call it once per frame. A single parameter called delta is available which is the time elapsed since the previous frame - this can be used for smooth animation timing
 
-// pause app but don't reset timers / frame count
-this.app.pause();
+  mesh.userData.onUpdate = ( delta ) => {
 
-// stop app and reset all timers / frame count
-this.app.stop();
+    mesh.rotation.x += delta;
+    mesh.rotation.y += delta;
+    mesh.rotation.z += delta;
+
+  }
+}
+
+// See https://discoverthreejs.com/book/1-first-steps/7-load-models/
+// for an explanation of this function
+function loadModels() {
+
+  // A reusable function to setup the models
+  const onLoad = ( gltf, position ) => {
+
+    const model = gltf.scene.children[ 0 ];
+    model.position.copy( position );
+
+    const animation = gltf.animations[ 0 ];
+    const mixer = new THREE.AnimationMixer( model );
+
+    // we'll check every object in the scene for
+    // this function and call it once per frame
+    model.userData.onUpdate = ( delta ) => {
+
+      mixer.update( delta );
+
+    };
+
+    const action = mixer.clipAction( animation );
+    action.play();
+
+    app.scene.add( model );
+
+  };
+
+  const onError = ( errorMessage ) => { console.log( errorMessage ); };
+
+  // load the first model. Each model is loaded asynchronously,
+  // so don't make any assumption about which one will finish loading first
+  const parrotPosition = new THREE.Vector3( 0, 0, 50 );
+  app.loader.load( 'models/Parrot.glb', gltf => onLoad( gltf, parrotPosition ), null, onError );
+
+  const flamingoPosition = new THREE.Vector3( 150, 0, -200 );
+  app.loader.load( 'models/Flamingo.glb', gltf => onLoad( gltf, flamingoPosition ), null, onError );
+
+  const storkPosition = new THREE.Vector3( 0, -50, -200 );
+  app.loader.load( 'models/Stork.glb', gltf => onLoad( gltf, storkPosition ), null, onError );
+
+}
+
+initLights();
+loadModels();
+
+app.start();
+
+// start and stop the app on click
+app.container.addEventListener( 'click', ( e ) => {
+
+  app.running ? app.stop() : app.start();
+
+} );
+
 ```
 
 ## The Camera
