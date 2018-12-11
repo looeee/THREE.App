@@ -1,24 +1,22 @@
 # Three-app module by [Discover three.js](https://discoverthreejs.com/)
 
-A simple wrapper for the THREE global object that simplifies setting up a three.js app.
+A simple wrapper for [three.js](https://threejs.org/) that simplifies setting scene with best practice settings.
 
 ## Features
 
-* Automatics resizing
+* Automatic resizing
 * VR ready
-* PerpectiveCamera
-* WebGLRenderer
-* glTF Loader
-* Orbit Controls
-* Scene will match the size of the containing div, easy to style with CSS
+* [PerspectiveCamera](https://threejs.org/docs/#api/en/cameras/PerspectiveCamera)
+* [WebGLRenderer](https://threejs.org/docs/#api/en/renderers/WebGLRenderer)
+* [glTF Loader](https://threejs.org/docs/#examples/loaders/GLTFLoader)
+* [Orbit Controls](https://threejs.org/docs/#examples/controls/OrbitControls)
+* The scene will match the size of the containing div, making it easy to style with CSS
 
 ## Installation
 
   `npm install three-app`
 
-## Demo
-
-[Codesandbox Demo](https://codesandbox.io/s/github/looeee/npm-three-app/tree/master/demo)
+## [Demo](https://codesandbox.io/s/github/looeee/npm-three-app/tree/master/demo)
 
 ## Basic setup
 
@@ -30,7 +28,7 @@ A simple wrapper for the THREE global object that simplifies setting up a three.
 
   <head>
 
-    <title>Discoverthreejs.com - Ch 2.2</title>
+    <title>Discoverthreejs.com - three-app module demo</title>
 
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 
@@ -57,7 +55,7 @@ A simple wrapper for the THREE global object that simplifies setting up a three.
   <body>
 
     <div id="container">
-      <!-- This div will hold our scene-->
+      <!-- This div will hold your scene-->
     </div>
 
     <!-- Your app -->
@@ -87,9 +85,9 @@ body {
 
 ### JavaScript
 
-The App handles setting up all the boilerplate for us, leaving us free to concentrate on lighting, models and positions.
+The App handles setting up all the boilerplate for you, leaving you free to concentrate on lighting, models and making your scenes look amazing!
 
-It will also set up [OrbitControls(https://threejs.org/docs/#examples/controls/OrbitControls) as `App.controls` and the [GLTFLoader](https://threejs.org/docs/#examples/loaders/GLTFLoader) as `app.loader`.
+It will also set up [OrbitControls](https://threejs.org/docs/#examples/controls/OrbitControls) as `App.controls` and the [GLTFLoader](https://threejs.org/docs/#examples/loaders/GLTFLoader) as `app.loader`.
 
 If you don't need controls or the loader, just leave out the scripts and they will be gracefully skipped. Simple!
 
@@ -124,8 +122,8 @@ function initMeshes() {
 
   const mesh = new THREE.Mesh( geo, mat );
 
-  // three-app will look for userData.onUpdate on each object in the scene and call it once per frame. A single parameter called delta is available which is the time elapsed since the previous frame - this can be used for smooth animation timing
-
+  // three-app will look for userData.onUpdate on each object in the scene and call it once per frame.
+  // A single parameter called delta is available which is the time elapsed since the previous frame - this can be used for smooth animation timing
   mesh.userData.onUpdate = ( delta ) => {
 
     mesh.rotation.x += delta;
@@ -217,32 +215,6 @@ app.camera.far = 100;
 app.camera.updateProjectionMatrix();
 ```
 
-### Fit camera to object
-
-To automatically zoom an object into view, use the `app.fitCameraToObject( object, zOffset )` method.
-
-```js
-app.add( object );
-const zOffset = 1.5;
-app.fitCameraToObject( object, zOffset );
-```
-
-This also sets the camera's near and far values, and if you are using OrbitControls then it also sets the control's target to the object position and updates `controls.maxDistance`. These are all set somewhat conservatively for maximum performance, which generally works but may cause problems if your model is animated and moves large distances.
-
-## Orbit Controls
-
-The app can automatically set up OrbitControls for you, however you will need to include the script seperately, either as as a `<script src="OrbitControls.js"></script>`, or
-`import OrbitControls from './OrbitControls.module.js'`.
-
-Once you have included the controls script, you can add set them up like so:
-
-```js
-app.initControls( OrbitControls );
-
-// if you set damping to true, the app will handle the per frame controls.update() call
-app.controls.enableDamping = true;
-```
-
 ## The renderer
 
 Internally, a WebGLRenderer with the following settings is created:
@@ -272,91 +244,12 @@ app.render = () => {
 
 three-app uses a "Game Loop" concept to render each frame. This means that the animation loop is divided into two parts, both called once per frame:
 
-* update(): handle updating of any animations, physics etc
-* render(): render the scene
+* `update()`: handle updating of any animations, physics etc
+* `render()`: render the scene
 
-You can add additional `onUpdate` functions using `app.registerOnUpdateFunction( func )`, and then these are stored in an array called `app.onUpdateFunctions`. Before rendering each frame, the app loops over the functions and calls them one by one, in the order they are stored in the array.
+The `update` functions looks through all the objects in the scene for a custom function defined in `myObject.userData.onUpdate` and call this once per frame.
 
-## Timing
-
-[three-time](https://www.npmjs.com/package/three-time) is used for timing, which means that you can play with the `app.time.timeScale` to create slow motion / speed up effect. Timescale less than 1 will slow down time, greater than 1 will speed it up.
-
-```js
-app.time.timeScale = 0.5; // run at half speed
-```
-
-In any onUpdate functions you, use `app.delta` for timing:
-
-```js
-const mixer = new THREE.AnimationMixer( object );
-
-// this mixer will be updated each frame taking into account the timescale
-const updateAnimation = () => {
-  mixer.update( app.delta );
-}
-
-app.registerOnUpdateFunction( updateAnimation );
-```
-
-## Automatic resizing
-
-If you are using a perspective camera (the default camera created by the App), then updating  the renderer and the perspective camera's frustum when the browser window changes size will handled automatically for you, by default.
-
-If you want to add additional functions to be called each a resize even happens, then you can use `app.registerOnResizeFunction( func )`:
-
-```js
-const myOnResizeFunction = () => {
-  console.log( 'The new window dimensions are: ', window.innerWidth, window.innerHeight );
-}
-
-app.registerOnResizeFunction( myOnResizeFunction );
-```
-
-As with `onUpdate` functions, any functions added this way will be stored in an array called `app.onResizeFunctions`.
-
-If you would rather handle resizing entirely yourself, set
-
-```js
-app.autoResize = false;
-```
-
-## Render targets
-
-You can easily set up render targets using `app.registerPreRenderFunction( func )`. Any function registered this way will be stored in an array called `app.preRenderFunctions`, and will be injected into the animation loop after `update()` but before `render()`.
-
-Here is a very simple render target example:
-
-```js
-const target = new THREE.WebGLRenderTarget( 512, 512 );
-// set target options here
-
-const rtScene = new THREE.Scene();
-
-const rtCamera = new THREE.PerspectiveCamera( 50, 1, 1, 100 );
-rtCamera.position.set( 0, 0, -8 );
-
-// add a simple purple cube to the rtScene
-const geometry = new THREE.BoxBufferGeometry( 1, 1, 1 );
-const material = new THREE.MeshBasicMaterial( { color: 0xff00ff } );
-const cube = new THREE.Mesh( geometry, material );
-rtScene.add( cube );
-
-app.registerOnUpdateFunction( ( ) => {
-  cube.rotation.x += 0.001 * app.delta;
-  cube.rotation.y += 0.001 * app.delta;
-  cube.rotation.z += 0.001 * app.delta;
-} );
-
-app.registerPreRenderFunction( () => {
-
-  app.renderer.render( rtScene, rtCamera, target );
-
-} );
-
-const rtMaterial = new THREE.MeshBasicMaterial( { map: target.texture } );
-```
-
-Now you can apply the material to any object and it will have a snazzy spinning purple cube on it
+The `delta` parameter which stores the elapsed time since the previous frame is available inside this function.
 
 ## License
 All code is MIT licensed and free to use, modify, or distribute in any way that you wish. Have fun!
