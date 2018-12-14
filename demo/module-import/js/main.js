@@ -1,7 +1,7 @@
-import * as THREE from './js/vendor/three.module.js';
-import GLTFLoader from './js/vendor/GLTFLoader.js';
-import OrbitControls from './js/vendor/OrbitControls.js';
-import App from './js/vendor/App.js';
+import * as THREE from './vendor/three.module.js';
+import GLTFLoader from './vendor/GLTFLoader.js';
+import OrbitControls from './vendor/OrbitControls.js';
+import App from './vendor/App.js';
 
 window.THREE = THREE;
 window.THREE.GLTFLoader = GLTFLoader;
