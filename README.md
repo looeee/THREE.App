@@ -1,6 +1,6 @@
-# Three-app module by [Discover three.js](https://discoverthreejs.com/)
+# Three-app
 
-A simple wrapper for [three.js](https://threejs.org/) that simplifies setting scene with best practice settings.
+A simple wrapper for [three.js](https://threejs.org/) that simplifies setting up a scene that follows best practices for a small to medium size project.
 
 ## Features
 
@@ -16,9 +16,14 @@ A simple wrapper for [three.js](https://threejs.org/) that simplifies setting sc
 
   `npm install three-app`
 
-## [Demo](https://codesandbox.io/s/github/looeee/npm-three-app/tree/master/demo?module=%2Fjs%2Fapp.js)
+## Demo
+
+* [script tags](https://codesandbox.io/s/github/looeee/npm-three-app/tree/master/demo?module=%2Fjs%2Fapp.js)
+* ES6 imports (TODO)
+
 
 ## Basic setup
+
 
 ### HTML
 
