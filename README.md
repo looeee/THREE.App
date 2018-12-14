@@ -18,8 +18,8 @@ A simple wrapper for [three.js](https://threejs.org/) that simplifies setting up
 
 ## Demo
 
-* [script tags](https://codesandbox.io/s/github/looeee/npm-three-app/tree/master/demo?module=%2Fjs%2Fapp.js)
-* ES6 imports (TODO)
+* [script tags](https://codesandbox.io/s/github/looeee/npm-three-app/tree/master/demo/script-tags)
+* ES6 imports (https://codesandbox.io/s/github/looeee/npm-three-app/tree/master/demo/module-import)
 
 
 ## Basic setup
@@ -228,6 +228,7 @@ A [WebGLRenderer](https://threejs.org/docs/#api/en/renderers/WebGLRenderer) with
 * antialias: true
 * alpha: true
 * powerPreference: 'high-performance'
+* stencil: false
 
 If you want to use other options, just set `app.renderer = new THREE.WebGLRenderer( { yourOptions } )`.
 

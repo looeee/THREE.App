@@ -1,9 +1,13 @@
-import App from 'three-app';
+import * as THREE from 'three';
+import GLTFLoader from './js/vendor/GLTFLoader.js';
+import OrbitControls from './js/vendor/OrbitControls.js';
+import App from './js/vendor/App.js';
 
-const app = new App();
+window.THREE = THREE;
+window.THREE.GLTFLoader = GLTFLoader;
+window.THREE.OrbitControls = OrbitControls;
 
-app.scene.background = new THREE.Color( 0x8FBCD4 );
-app.camera.position.set( -50, 50, 150 );
+const app = new App( 'container' );
 
 function initLights() {
 
@@ -51,23 +55,34 @@ function loadModels() {
   // load the first model. Each model is loaded asynchronously,
   // so don't make any assumption about which one will finish loading first
   const parrotPosition = new THREE.Vector3( 0, 0, 50 );
-  app.loader.load( 'https://threejs.org/examples/models/gltf/Parrot.glb', gltf => onLoad( gltf, parrotPosition ), null, onError );
+  app.loader.load( 'models/Parrot.glb', gltf => onLoad( gltf, parrotPosition ), null, onError );
 
   const flamingoPosition = new THREE.Vector3( 150, 0, -200 );
-  app.loader.load( 'https://threejs.org/examples/models/gltf/Flamingo.glb', gltf => onLoad( gltf, flamingoPosition ), null, onError );
+  app.loader.load( 'models/Flamingo.glb', gltf => onLoad( gltf, flamingoPosition ), null, onError );
 
   const storkPosition = new THREE.Vector3( 0, -50, -200 );
-  app.loader.load( 'https://threejs.org/examples/models/gltf/Stork.glb', gltf => onLoad( gltf, storkPosition ), null, onError );
+  app.loader.load( 'models/Stork.glb', gltf => onLoad( gltf, storkPosition ), null, onError );
 
 }
 
-initLights();
-loadModels();
+function init() {
 
-app.start();
+  app.init();
 
-app.container.addEventListener( 'click', ( e ) => {
+  app.scene.background = new THREE.Color( 0x8FBCD4 );
+  app.camera.position.set( -50, 50, 150 );
 
-  app.running ? app.stop() : app.start();
+  initLights();
+  loadModels();
 
-} );
+  app.start();
+
+  app.container.addEventListener( 'click', () => {
+
+    app.running ? app.stop() : app.start();
+
+  } );
+
+}
+
+init();
