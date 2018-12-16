@@ -72,6 +72,8 @@ function init() {
   app.scene.background = new THREE.Color( 0x8FBCD4 );
   app.camera.position.set( -50, 50, 150 );
 
+  app.controls.enablePan = false;
+
   initLights();
   loadModels();
 

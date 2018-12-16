@@ -30,8 +30,14 @@ var THREE_APP = function () {
     // since they can't be changed without creating a new WebGLRenderer
     this.alpha = false;
     this.antialias = true;
+    this.powerPreference = 'high-performance';
+    this.stencil = false;
 
+    // this also needs to be set before calling init()
     this.autoResize = true;
+
+    this.onUpdate = null;
+    this.onResize = null;
   }
 
   _createClass(THREE_APP, [{
@@ -44,7 +50,7 @@ var THREE_APP = function () {
       this.initLoader();
       this.initRenderer();
 
-      window.addEventListener('resize', function () {
+      if (this.autoResize) window.addEventListener('resize', function () {
         return _this.onWindowResize();
       });
     }
@@ -52,11 +58,14 @@ var THREE_APP = function () {
     key: 'initCamera',
     value: function initCamera() {
 
-      this.camera = new THREE.PerspectiveCamera(35, this.container.clientWidth / this.container.clientHeight, 1, 1000);
+      if (!this.camera) this.camera = new THREE.PerspectiveCamera(35, this.container.clientWidth / this.container.clientHeight, 1, 1000);
     }
   }, {
     key: 'initControls',
     value: function initControls() {
+
+      // allow custom controls to be set up
+      if (this.controls) return;
 
       // if the controls script was loaded, we'll set them up
       if (typeof THREE.OrbitControls === 'function') this.controls = new THREE.OrbitControls(this.camera, this.container);
@@ -71,16 +80,23 @@ var THREE_APP = function () {
     key: 'initLoader',
     value: function initLoader() {
 
+      // allow custom loader to be set up
+      if (this.loader) return;
+
       if (typeof THREE.GLTFLoader === 'function') this.loader = new THREE.GLTFLoader();
     }
   }, {
     key: 'initRenderer',
     value: function initRenderer() {
 
+      // allow custom renderer to be set up
+      if (this.renderer) return;
+
       this.renderer = new THREE.WebGLRenderer({
-        powerPreference: 'high-performance',
+        powerPreference: this.powerPreference,
         alpha: this.alpha,
-        antialias: this.antialias
+        antialias: this.antialias,
+        stencil: this.stencil
       });
 
       this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
@@ -105,7 +121,7 @@ var THREE_APP = function () {
 
       var delta = this.clock.getDelta();
 
-      if (this.controls) this.controls.update();
+      if (this.controls && this.controls.update) this.controls.update();
 
       // step through the scene and call custom onUpdate functions on any object
       // for which we have defined them
@@ -113,6 +129,8 @@ var THREE_APP = function () {
 
         if (child.userData.onUpdate) child.userData.onUpdate(delta);
       });
+
+      if (this.onUpdate) this.onUpdate(delta);
     }
   }, {
     key: 'start',
@@ -153,6 +171,8 @@ var THREE_APP = function () {
 
       // render an extra frame to prevent jank
       this.renderer.render(this.scene, this.camera);
+
+      if (this.onResize) this.onResize();
     }
   }]);
 
