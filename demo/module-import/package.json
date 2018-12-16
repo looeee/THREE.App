@@ -31,6 +31,6 @@
   "devDependencies": {
     "parcel-bundler": "^1.6.1",
     "three": "^0.99.0",
-    "three-app": "^1.0.5"
+    "three-app": "^1.0.6"
   }
 }

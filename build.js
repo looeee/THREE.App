@@ -10,9 +10,7 @@ const writeFile = ( fileName, data ) => {
 
 };
 
-
 const inputFile = 'src/index.js';
-const outputFile = 'build/index.js';
 
 const defaultPlugins = [
   nodeResolve(),
@@ -33,27 +31,8 @@ const defaultPlugins = [
   } ),
 ];
 
-// rollup inputOptions
-const inputOptions = () => {
-
-  return {
-    input: inputFile,
-    plugins: defaultPlugins,
-    perf: true,
-  };
-};
-
-// rollup outputOptions
-const outputOptions = () => {
-  return {
-    file: outputFile,
-    format: 'umd',
-    name: 'output',
-  };
-};
-
 // stderr to stderr to keep `rollup main.js > bundle.js` from breaking
-const stderr = console.error.bind( console );
+// const stderr = console.error.bind( console );
 
 async function build( inputOpts, outputOpts ) {
 
@@ -70,7 +49,41 @@ async function build( inputOpts, outputOpts ) {
 
 }
 
-const inputOpts = inputOptions( inputFile );
-const outputOpts = outputOptions( inputFile );
+const inputOpts = {
+  input: inputFile,
+  plugins: defaultPlugins,
+  perf: true,
+};
 
-build( inputOpts, outputOpts );
+build( inputOpts, {
+  file: 'build/iife.js',
+  name: 'three_app',
+  format: 'iife',
+} );
+
+build( inputOpts, {
+  file: 'build/umd.js',
+  name: 'three_app',
+  format: 'umd',
+} );
+
+build( inputOpts, {
+  file: 'build/esm.js',
+  format: 'esm',
+} );
+
+build( inputOpts, {
+  file: 'build/cjs.js',
+  format: 'cjs',
+} );
+
+build( inputOpts, {
+  file: 'build/amd.js',
+  format: 'amd',
+} );
+
+build( inputOpts, {
+  file: 'build/system.js',
+  format: 'system',
+} );
+
