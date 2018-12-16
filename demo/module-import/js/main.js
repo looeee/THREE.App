@@ -55,13 +55,13 @@ function loadModels() {
   // load the first model. Each model is loaded asynchronously,
   // so don't make any assumption about which one will finish loading first
   const parrotPosition = new THREE.Vector3( 0, 0, 50 );
-  app.loader.load( 'models/Parrot.glb', gltf => onLoad( gltf, parrotPosition ), null, onError );
+  app.loader.load( 'https://threejs.org/examples/models/gltf/Parrot.glb', gltf => onLoad( gltf, parrotPosition ), null, onError );
 
   const flamingoPosition = new THREE.Vector3( 150, 0, -200 );
-  app.loader.load( 'models/Flamingo.glb', gltf => onLoad( gltf, flamingoPosition ), null, onError );
+  app.loader.load( 'https://threejs.org/examples/models/gltf/Flamingo.glb', gltf => onLoad( gltf, flamingoPosition ), null, onError );
 
   const storkPosition = new THREE.Vector3( 0, -50, -200 );
-  app.loader.load( 'models/Stork.glb', gltf => onLoad( gltf, storkPosition ), null, onError );
+  app.loader.load( 'https://threejs.org/examples/models/gltf/Stork.glb', gltf => onLoad( gltf, storkPosition ), null, onError );
 
 }
 

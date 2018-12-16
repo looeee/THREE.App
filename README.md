@@ -19,8 +19,7 @@ A simple wrapper for [three.js](https://threejs.org/) that simplifies setting up
 ## Demo
 
 * [script tags](https://codesandbox.io/s/github/looeee/npm-three-app/tree/master/demo/script-tags)
-* [ES6 module imports](https://codesandbox.io/s/github/looeee/npm-three-app/tree/master/demo/module-import)
-
+* [ES6 module imports](https://codesandbox.io/s/910om1w3mr)
 
 ## Basic setup
 

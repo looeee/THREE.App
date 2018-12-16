@@ -27,9 +27,10 @@
     "start": "parcel index.html --open",
     "build": "parcel build index.html"
   },
-  "dependencies": {},
+  "dependencies": {
+    "three-app": "^1.0.8"
+  },
   "devDependencies": {
-    "parcel-bundler": "^1.6.1",
-    "three-app": "^1.0.6"
+    "parcel-bundler": "^1.6.1"
   }
 }

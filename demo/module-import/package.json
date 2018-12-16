@@ -1,6 +1,6 @@
 {
   "name": "three-app-module-import-demo",
-  "version": "1.0.4",
+  "version": "1.0.0",
   "description": "Demo for NPM module three-app, a simple wrapper for three.js",
   "main": "index.html",
   "repository": {
@@ -27,9 +27,10 @@
     "start": "parcel index.html --open",
     "build": "parcel build index.html"
   },
-  "dependencies": {},
-  "devDependencies": {
-    "parcel-bundler": "^1.6.1",
+  "dependencies": {
     "three-app": "^1.0.6"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.6.1"
   }
 }
