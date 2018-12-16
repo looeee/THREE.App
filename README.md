@@ -78,7 +78,7 @@ Module aware tools such as Rollup or WebPack will load this as an [ES6 module](h
 
     <!--
 
-      For the time being, importing three.js addons such as
+      For the time being, importing three.js add-ons such as
       OrbitControls and GLTFLoader as ES6 modules is a bit complex.
 
       For simplicity, we'll demonstrate how to use this while importing three.js
@@ -163,7 +163,7 @@ app.scene.add( mesh );
 
 ### Per Object Per Frame Updates
 
-three-app puts each object in charge of updating itlse - just put an `onUpdate` function in the object's `userData`:
+three-app puts each object in charge of updating itself - just put an `onUpdate` function in the object's `userData`:
 
 ```js
 mesh.userData.onUpdate = ( delta ) => {
