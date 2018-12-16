@@ -1,5 +1,3 @@
-import App from 'three-app';
-
 const app = new App();
 
 app.scene.background = new THREE.Color( 0x8FBCD4 );
