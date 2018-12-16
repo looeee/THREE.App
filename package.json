@@ -1,6 +1,6 @@
 {
   "name": "three-app",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "A simple wrapper for three.js that abstracts away most of the basic setup",
   "main": "build/umd.js",
   "module": "build/esm.js",

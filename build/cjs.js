@@ -38,6 +38,9 @@ var THREE_APP = function () {
     // this also needs to be set before calling init()
     this.autoResize = true;
 
+    // set this to a value less than 3 to increase performance on low power mobile devices with high pixel ratio
+    this.maxPixelRatio = Infinity;
+
     this.onUpdate = null;
     this.onResize = null;
   }
@@ -102,7 +105,7 @@ var THREE_APP = function () {
       });
 
       this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
-      this.renderer.setPixelRatio(window.devicePixelRatio);
+      this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, this.maxPixelRatio));
 
       // to avoid page pulling
       this.renderer.domElement.addEventListener('touchstart', function (e) {
@@ -170,6 +173,7 @@ var THREE_APP = function () {
       this.camera.updateProjectionMatrix();
 
       this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
+      this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, this.maxPixelRatio));
 
       // render an extra frame to prevent jank
       this.renderer.render(this.scene, this.camera);
