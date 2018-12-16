@@ -14,8 +14,6 @@
    */
   var THREE_APP = function () {
     function THREE_APP(containerID) {
-      var _this = this;
-
       _classCallCheck(this, THREE_APP);
 
       containerID = containerID || 'container'; // default ID if none provided
@@ -31,19 +29,32 @@
 
       this.scene = new THREE.Scene();
       this.clock = new THREE.Clock();
+
       this.running = false;
 
-      this.initCamera();
-      this.initControls();
-      this.initLoader();
-      this.initRenderer();
+      // make sure to set these to the values you want before calling init
+      // since they can't be changed without creating a new WebGLRenderer
+      this.alpha = false;
+      this.antialias = true;
 
-      window.addEventListener('resize', function () {
-        return _this.onWindowResize();
-      });
+      this.autoResize = true;
     }
 
     _createClass(THREE_APP, [{
+      key: 'init',
+      value: function init() {
+        var _this = this;
+
+        this.initCamera();
+        this.initControls();
+        this.initLoader();
+        this.initRenderer();
+
+        window.addEventListener('resize', function () {
+          return _this.onWindowResize();
+        });
+      }
+    }, {
       key: 'initCamera',
       value: function initCamera() {
 
@@ -53,10 +64,11 @@
       key: 'initControls',
       value: function initControls() {
 
-        // Case 1: controls loaded via <script> tag
+        // if the controls script was loaded, we'll set them up
         if (typeof THREE.OrbitControls === 'function') this.controls = new THREE.OrbitControls(this.camera, this.container);
-        // Case 2: controls loaded as ES6 module
-        else if (typeof OrbitControls === 'function') this.controls = new OrbitControls(this.camera, this.container);else return;
+
+        // otherwise we'll skip them
+        else return;
 
         // gives the controls a feeling of "weight"
         this.controls.enableDamping = true;
@@ -65,7 +77,7 @@
       key: 'initLoader',
       value: function initLoader() {
 
-        if (typeof THREE.GLTFLoader === 'function') this.loader = new THREE.GLTFLoader();else if (typeof GLTFLoader === 'function') this.loader = new GLTFLoader();
+        if (typeof THREE.GLTFLoader === 'function') this.loader = new THREE.GLTFLoader();
       }
     }, {
       key: 'initRenderer',
@@ -73,8 +85,8 @@
 
         this.renderer = new THREE.WebGLRenderer({
           powerPreference: 'high-performance',
-          alpha: true,
-          antialias: true
+          alpha: this.alpha,
+          antialias: this.antialias
         });
 
         this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
@@ -136,6 +148,8 @@
     }, {
       key: 'onWindowResize',
       value: function onWindowResize() {
+
+        if (!this.autoResize) return;
 
         this.camera.aspect = this.container.clientWidth / this.container.clientHeight;
 

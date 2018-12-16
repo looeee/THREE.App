@@ -1,8 +1,5 @@
 
-const app = new THREE_APP();
-
-app.scene.background = new THREE.Color( 0x8FBCD4 );
-app.camera.position.set( -50, 50, 150 );
+const app = new THREE_APP( 'container' );
 
 function initLights() {
 
@@ -60,13 +57,24 @@ function loadModels() {
 
 }
 
-initLights();
-loadModels();
+function init() {
 
-app.start();
+  app.init();
 
-app.container.addEventListener( 'click', ( e ) => {
+  app.scene.background = new THREE.Color( 0x8FBCD4 );
+  app.camera.position.set( -50, 50, 150 );
 
-  app.running ? app.stop() : app.start();
+  initLights();
+  loadModels();
 
-} );
+  app.start();
+
+  app.container.addEventListener( 'click', () => {
+
+    app.running ? app.stop() : app.start();
+
+  } );
+
+}
+
+init();
