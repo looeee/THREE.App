@@ -1,4 +1,5 @@
-const app = new App();
+
+const app = new THREE_APP();
 
 app.scene.background = new THREE.Color( 0x8FBCD4 );
 app.camera.position.set( -50, 50, 150 );

@@ -2,7 +2,7 @@
  * @author Lewy Blue / https://discoverthreejs.com
  *
  */
-export default class App {
+export default class THREE_APP {
 
   constructor( containerID ) {
 

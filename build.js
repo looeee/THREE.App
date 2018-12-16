@@ -57,13 +57,13 @@ const inputOpts = {
 
 build( inputOpts, {
   file: 'build/iife.js',
-  name: 'three_app',
+  name: 'THREE_APP',
   format: 'iife',
 } );
 
 build( inputOpts, {
   file: 'build/umd.js',
-  name: 'three_app',
+  name: 'THREE_APP',
   format: 'umd',
 } );
 
