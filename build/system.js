@@ -11,11 +11,11 @@ System.register([], function (exports, module) {
        * @author Lewy Blue / https://discoverthreejs.com
        *
        */
-      var App = function () {
-        function App(containerID) {
+      var THREE_APP = function () {
+        function THREE_APP(containerID) {
           var _this = this;
 
-          _classCallCheck(this, App);
+          _classCallCheck(this, THREE_APP);
 
           containerID = containerID || 'container'; // default ID if none provided
 
@@ -42,7 +42,7 @@ System.register([], function (exports, module) {
           });
         }
 
-        _createClass(App, [{
+        _createClass(THREE_APP, [{
           key: 'initCamera',
           value: function initCamera() {
 
@@ -147,9 +147,9 @@ System.register([], function (exports, module) {
           }
         }]);
 
-        return App;
+        return THREE_APP;
       }();
-      exports('default', App);
+      exports('default', THREE_APP);
 
     }
   };

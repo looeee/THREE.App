@@ -15,7 +15,11 @@
   "keywords": [
     "three.js",
     "threejs",
-    "webgl"
+    "webgl",
+    "3d",
+    "webvr",
+    "webxr",
+    "discover three.js"
   ],
   "author": "Lewy Blue <welcome@discoverthreejs.com> (https://discoverthreejs.com)",
   "license": "MIT",

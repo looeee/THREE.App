@@ -8,11 +8,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
  * @author Lewy Blue / https://discoverthreejs.com
  *
  */
-var App = function () {
-  function App(containerID) {
+var THREE_APP = function () {
+  function THREE_APP(containerID) {
     var _this = this;
 
-    _classCallCheck(this, App);
+    _classCallCheck(this, THREE_APP);
 
     containerID = containerID || 'container'; // default ID if none provided
 
@@ -39,7 +39,7 @@ var App = function () {
     });
   }
 
-  _createClass(App, [{
+  _createClass(THREE_APP, [{
     key: 'initCamera',
     value: function initCamera() {
 
@@ -144,7 +144,7 @@ var App = function () {
     }
   }]);
 
-  return App;
+  return THREE_APP;
 }();
 
-module.exports = App;
+module.exports = THREE_APP;

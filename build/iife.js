@@ -1,4 +1,4 @@
-var three_app = (function () {
+var THREE_APP = (function () {
   'use strict';
 
   var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -9,11 +9,11 @@ var three_app = (function () {
    * @author Lewy Blue / https://discoverthreejs.com
    *
    */
-  var App = function () {
-    function App(containerID) {
+  var THREE_APP = function () {
+    function THREE_APP(containerID) {
       var _this = this;
 
-      _classCallCheck(this, App);
+      _classCallCheck(this, THREE_APP);
 
       containerID = containerID || 'container'; // default ID if none provided
 
@@ -40,7 +40,7 @@ var three_app = (function () {
       });
     }
 
-    _createClass(App, [{
+    _createClass(THREE_APP, [{
       key: 'initCamera',
       value: function initCamera() {
 
@@ -145,9 +145,9 @@ var three_app = (function () {
       }
     }]);
 
-    return App;
+    return THREE_APP;
   }();
 
-  return App;
+  return THREE_APP;
 
 }());

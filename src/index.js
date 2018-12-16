@@ -20,7 +20,19 @@ export default class THREE_APP {
 
     this.scene = new THREE.Scene();
     this.clock = new THREE.Clock();
+
     this.running = false;
+
+    // make sure to set these to the values you want before calling init
+    // since they can't be changed without creating a new WebGLRenderer
+    this.alpha = false;
+    this.antialias = true;
+
+    this.autoResize = true;
+
+  }
+
+  init() {
 
     this.initCamera();
     this.initControls();
@@ -39,10 +51,10 @@ export default class THREE_APP {
 
   initControls() {
 
-    // Case 1: controls loaded via <script> tag
+    // if the controls script was loaded, we'll set them up
     if ( typeof THREE.OrbitControls === 'function' ) this.controls = new THREE.OrbitControls( this.camera, this.container );
-    // Case 2: controls loaded as ES6 module
-    else if ( typeof OrbitControls === 'function' ) this.controls = new OrbitControls( this.camera, this.container );
+
+    // otherwise we'll skip them
     else return;
 
     // gives the controls a feeling of "weight"
@@ -53,7 +65,6 @@ export default class THREE_APP {
   initLoader() {
 
     if ( typeof THREE.GLTFLoader === 'function' ) this.loader = new THREE.GLTFLoader();
-    else if ( typeof GLTFLoader === 'function' ) this.loader = new GLTFLoader();
 
   }
 
@@ -61,8 +72,8 @@ export default class THREE_APP {
 
     this.renderer = new THREE.WebGLRenderer( {
       powerPreference: 'high-performance',
-      alpha: true,
-      antialias: true,
+      alpha: this.alpha,
+      antialias: this.antialias,
     } );
 
     this.renderer.setSize( this.container.clientWidth, this.container.clientHeight );
@@ -124,6 +135,8 @@ export default class THREE_APP {
 
   onWindowResize() {
 
+    if( ! this.autoResize ) return;
+
     this.camera.aspect = this.container.clientWidth / this.container.clientHeight;
 
     this.camera.updateProjectionMatrix();
@@ -135,4 +148,4 @@ export default class THREE_APP {
 
   }
 
-};
+}

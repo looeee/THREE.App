@@ -8,11 +8,11 @@ define(function () { 'use strict';
    * @author Lewy Blue / https://discoverthreejs.com
    *
    */
-  var App = function () {
-    function App(containerID) {
+  var THREE_APP = function () {
+    function THREE_APP(containerID) {
       var _this = this;
 
-      _classCallCheck(this, App);
+      _classCallCheck(this, THREE_APP);
 
       containerID = containerID || 'container'; // default ID if none provided
 
@@ -39,7 +39,7 @@ define(function () { 'use strict';
       });
     }
 
-    _createClass(App, [{
+    _createClass(THREE_APP, [{
       key: 'initCamera',
       value: function initCamera() {
 
@@ -144,9 +144,9 @@ define(function () { 'use strict';
       }
     }]);
 
-    return App;
+    return THREE_APP;
   }();
 
-  return App;
+  return THREE_APP;
 
 });
