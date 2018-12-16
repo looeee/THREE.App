@@ -16,6 +16,12 @@ It will also set up [OrbitControls](https://threejs.org/docs/#examples/controls/
 * [Orbit Controls](https://threejs.org/docs/#examples/controls/OrbitControls)
 * Simple canvas size setup using CSS
 
+## Demo
+
+1. [Script tags](https://codesandbox.io/s/github/looeee/npm-three-app/tree/master/demo/script-tags) (the easy way)
+2. [ES6 module imports](https://codesandbox.io/s/github/looeee/npm-three-app/tree/master/demo/module-import) (the correct way)
+
+
 ## Installation
 
 ### Via NPM
@@ -52,11 +58,6 @@ Module aware tools such as Rollup or WebPack will load this as an [ES6 module](h
   ``` html
   <script src="three_app/iife.js"></script>
   ```
-
-## Demo
-
-1. [Script tags](https://codesandbox.io/s/github/looeee/npm-three-app/tree/master/demo/script-tags)
-2. [ES6 module imports](https://codesandbox.io/s/github/looeee/npm-three-app/tree/master/demo/module-import)
 
 ## Basic setup
 
