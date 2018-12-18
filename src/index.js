@@ -4,15 +4,15 @@
  */
 export default class THREE_APP {
 
-  constructor( containerID ) {
+  constructor( container ) {
 
-    containerID = containerID || 'container'; // default ID if none provided
+    container = container || '#container'; // default ID if none provided
 
-    this.container = document.getElementById( containerID );
+    this.container = document.querySelector( container );
 
     if ( !this.container ) {
 
-      console.error( `Couldn't find the container element with ID #${containerID}!` );
+      console.error( `Couldn't find the container element: ${container}` );
 
       return;
 
@@ -54,7 +54,7 @@ export default class THREE_APP {
 
   initCamera() {
 
-    if( !this.camera ) this.camera = new THREE.PerspectiveCamera( 35, this.container.clientWidth / this.container.clientHeight, 1, 1000 );
+    if ( !this.camera ) this.camera = new THREE.PerspectiveCamera( 35, this.container.clientWidth / this.container.clientHeight, 1, 1000 );
 
   }
 
@@ -156,7 +156,7 @@ export default class THREE_APP {
 
   onWindowResize() {
 
-    if( !this.autoResize ) return;
+    if ( !this.autoResize ) return;
 
     this.camera.aspect = this.container.clientWidth / this.container.clientHeight;
 

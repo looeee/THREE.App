@@ -1,4 +1,4 @@
-# Three-app
+# three-app
 
 A simple wrapper for [three.js](https://threejs.org/) that simplifies setting up a scene while following best practices for a small to medium size project.
 
@@ -135,7 +135,7 @@ body {
 Setting up the app takes just a couple of lines:
 
 ```js
-const app = new THREE_APP( 'container' );
+const app = new THREE_APP( '#container' );
 
 function init() {
 

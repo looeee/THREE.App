@@ -28,7 +28,7 @@
     "build": "parcel build index.html"
   },
   "dependencies": {
-    "three-app": "^1.0.9"
+    "three-app": "^1.0.11"
   },
   "devDependencies": {
     "parcel-bundler": "^1.6.1"

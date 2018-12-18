@@ -7,16 +7,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
  *
  */
 var THREE_APP = function () {
-  function THREE_APP(containerID) {
+  function THREE_APP(container) {
     _classCallCheck(this, THREE_APP);
 
-    containerID = containerID || 'container'; // default ID if none provided
+    container = container || '#container'; // default ID if none provided
 
-    this.container = document.getElementById(containerID);
+    this.container = document.querySelector(container);
 
     if (!this.container) {
 
-      console.error('Couldn\'t find the container element with ID #' + containerID + '!');
+      console.error('Couldn\'t find the container element: ' + container);
 
       return;
     }

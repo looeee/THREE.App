@@ -1,13 +1,15 @@
+import THREE_APP from 'three-app';
+
 import * as THREE from './vendor/three.module.js';
 import GLTFLoader from './vendor/GLTFLoader.js';
 import OrbitControls from './vendor/OrbitControls.js';
-import THREE_APP from 'three-app';
+
 
 window.THREE = THREE;
 window.THREE.GLTFLoader = GLTFLoader;
 window.THREE.OrbitControls = OrbitControls;
 
-const app = new THREE_APP( 'container' );
+const app = new THREE_APP( '#container' );
 
 function initLights() {
 
