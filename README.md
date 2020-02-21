@@ -1,4 +1,4 @@
-# three-app
+# Discover-three-engine
 
 WIP - for demo purposes only.
 
