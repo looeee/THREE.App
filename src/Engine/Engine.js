@@ -5,7 +5,7 @@ import { Controls } from './Controls/Controls.js';
 import { Environment } from './Environment/Environment.js';
 // import { ColorManager } from './Color/ColorManager.js';
 
-import { Scene } from '/node_modules/three/build/three.module.js';
+import { Scene } from 'three/build/three.module.js';
 import { PostRenderer } from './PostRenderer/PostRenderer.js';
 
 class Engine {

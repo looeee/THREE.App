@@ -1,4 +1,4 @@
-import { GUI } from '/node_modules/three/examples/jsm/libs/dat.gui.module.js';
+import { GUI } from 'three/examples/jsm/libs/dat.gui.module.js';
 
 import { setupLightsDebug } from './LightsDebug/lightsDebug.js';
 import { setupCameraDebug } from './CameraDebug/cameraDebug.js';

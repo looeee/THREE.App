@@ -1,4 +1,4 @@
-import { PerspectiveCamera } from '/node_modules/three/build/three.module.js';
+import { PerspectiveCamera } from 'three/build/three.module.js';
 
 class Camera extends PerspectiveCamera {
   constructor(container) {
@@ -12,7 +12,6 @@ class Camera extends PerspectiveCamera {
 
     this.updateProjectionMatrix();
   }
-
 }
 
 export { Camera };

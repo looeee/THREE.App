@@ -1,7 +1,7 @@
 import commonjs from 'rollup-plugin-commonjs';
 import nodeResolve from 'rollup-plugin-node-resolve';
 
-const inputDir = 'src/';
+const inputDir = 'src';
 const inputFile = 'main.js';
 const outputDir = 'build';
 const outputFile = 'main.js';

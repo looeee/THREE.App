@@ -1,9 +1,6 @@
-// import { ModelLoader } from './ModelLoader.js';
-// import { EnvironmentLoader } from './EnvironmentLoader.js';
+import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
 
-import { RGBELoader } from '/node_modules/three/examples/jsm/loaders/RGBELoader.js';
-
-import { GLTFLoader } from '/node_modules/three/examples/jsm/loaders/GLTFLoader.js';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { Loader } from './Loader.js';
 
 class AssetManager {

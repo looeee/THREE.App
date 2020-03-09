@@ -1,4 +1,4 @@
-import { Clock } from '/node_modules/three/build/three.module.js';
+import { Clock } from 'three/build/three.module.js';
 
 const clock = new Clock();
 

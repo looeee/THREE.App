@@ -1,4 +1,4 @@
-import { WEBGL } from '/node_modules/three/examples/jsm/WebGL.js';
+import { WEBGL } from 'three/examples/jsm/WebGL.js';
 
 function createContext(canvas, antialias) {
   const contextAttributes = {

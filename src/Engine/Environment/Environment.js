@@ -4,9 +4,9 @@ import {
   sRGBEncoding,
   Texture,
   DataTexture,
-} from '/node_modules/three/build/three.module.js';
+} from 'three/build/three.module.js';
 
-import { RoughnessMipmapper } from '/node_modules/three/examples/jsm/utils/RoughnessMipmapper.js';
+import { RoughnessMipmapper } from 'three/examples/jsm/utils/RoughnessMipmapper.js';
 
 class Environment {
   constructor(scene, renderer) {

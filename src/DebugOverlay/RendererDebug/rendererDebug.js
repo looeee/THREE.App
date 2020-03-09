@@ -5,9 +5,9 @@ import {
   Uncharted2ToneMapping,
   CineonToneMapping,
   ACESFilmicToneMapping,
-} from '/node_modules/three/build/three.module.js';
+} from 'three/build/three.module.js';
 
-import { EffectComposer } from '/node_modules/three/examples/jsm/postprocessing/EffectComposer.js';
+import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
 
 function setupRendererDebug(gui, renderer) {
   let _renderer;

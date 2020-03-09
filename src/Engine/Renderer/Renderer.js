@@ -4,7 +4,7 @@ import {
   sRGBEncoding,
   WebGLRenderer,
   VSMShadowMap,
-} from '/node_modules/three/build/three.module.js';
+} from 'three/build/three.module.js';
 
 import { createContext } from './createContext.js';
 

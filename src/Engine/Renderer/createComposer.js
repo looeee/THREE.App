@@ -2,9 +2,9 @@ import {
   RGBFormat,
   Vector2,
   WebGLMultisampleRenderTarget,
-} from '/node_modules/three/build/three.module.js';
+} from 'three/build/three.module.js';
 
-import { EffectComposer } from '/node_modules/three/examples/jsm/postprocessing/EffectComposer.js';
+import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
 
 function createRenderTarget(size, isWebGL2) {
   if (!isWebGL2) return null;

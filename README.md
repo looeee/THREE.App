@@ -1,4 +1,4 @@
-# Discover-three-engine
+# Discover engine
 
 WIP - for demo purposes only.
 
