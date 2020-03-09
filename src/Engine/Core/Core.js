@@ -3,10 +3,6 @@ import { Clock } from '/node_modules/three/build/three.module.js';
 const clock = new Clock();
 
 class Core {
-  constructor() {
-    this.objectsToUpdate = [];
-  }
-
   update(updatables) {
     const delta = clock.getDelta();
     for (const object of updatables) {

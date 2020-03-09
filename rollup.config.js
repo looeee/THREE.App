@@ -38,7 +38,7 @@ function createConfig() {
     output: [
       {
         file: `${outputDir}/${outputFile}`,
-        format: 'iife',
+        format: 'esm',
         sourcemap: true,
         name: 'World',
       },

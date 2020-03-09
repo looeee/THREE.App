@@ -1,39 +1,67 @@
 import { Core } from './Core/Core.js';
-import { OrbitingPerspectiveCamera } from './Camera/OrbitingPerspectiveCamera.js';
+import { Camera } from './Camera/Camera.js';
 import { Renderer } from './Renderer/Renderer.js';
+import { Controls } from './Controls/Controls.js';
+import { Environment } from './Environment/Environment.js';
 // import { ColorManager } from './Color/ColorManager.js';
-import { DebugOverlay } from './Debug/DebugOverlay.js';
-// import { PostEffects } from './Effects/PostEffects.js';
-import { handleWindowResizeEvent } from './utilities/handleResize.js';
 
 import { Scene } from '/node_modules/three/build/three.module.js';
 import { PostRenderer } from './PostRenderer/PostRenderer.js';
 
-let usingPostRenderer = false;
-
 class Engine {
-  constructor(container, debug = false) {
-    this.camera = new OrbitingPerspectiveCamera(container);
+  constructor(container) {
+    this.container = container;
+    this.camera = new Camera(container);
     this.renderer = new Renderer(container);
     this.scene = new Scene();
+    this.controls = new Controls(this.camera, container);
+    this.environment = new Environment(this.scene, this.renderer);
 
     this.core = new Core(container);
 
     // this array contains objects with an update
     // method that will run once per frame
-    this.updatables = [this.camera];
+    this.updatables = [this.controls];
 
-    handleWindowResizeEvent(container, this.camera, this.renderer);
-
-    if (debug) this.setupDebugOverlay();
+    this.resizeables = [this.camera, this.renderer];
+    this.setupResizeHandler();
   }
 
-  addRenderableObject(object, updatable = false) {
+  setupResizeHandler() {
+    window.addEventListener('resize', () => {
+      for (const object of this.resizeables) {
+        if (typeof object.resize === 'function') {
+          object.resize(this.container);
+        }
+      }
+    });
+  }
+
+  setControls(controls) {
+    if (this.controls.dispose) {
+      this.controls.dispose();
+    }
+
+    const index = this.updatables.indexOf(this.controls);
+    if (index !== -1) this.updatables[index] = controls;
+
+    this.controls = controls;
+  }
+
+  addRenderable(object, updatable = false) {
     this.scene.add(object);
 
     if (updatable) {
+      // const name = object.name !== '' ? object.name : object.uuid;
+      // this.updatables[name] = object;
       this.updatables.push(object);
     }
+  }
+
+  removeRenderable(object) {
+    this.scene.remove(object);
+
+    this.updatables = this.updatables.filter(item => item !== object);
   }
 
   // Automatically switch to post renderer when effects are added
@@ -41,18 +69,21 @@ class Engine {
   // e.g. to prevent shader recompilation when adding passes later,
   // pass an empty array to this function
   addEffects(effects) {
-    if (usingPostRenderer === false) {
+    if (!(this.renderer instanceof PostRenderer)) {
+      this.resizeables = this.resizeables.filter(
+        item => item !== this.renderer,
+      );
+
       this.renderer = new PostRenderer(
-        this.renderer,
+        new Renderer(this.container, true),
         this.scene,
         this.camera,
       );
 
-      usingPostRenderer = true;
+      this.resizeables.push(this.renderer);
     }
-
     for (const effect of effects) {
-      this.renderer.addEffect(effect);
+      this.renderer.addPass(effect);
     }
   }
 
@@ -67,16 +98,6 @@ class Engine {
 
   stop() {
     this.core.stop(this.renderer);
-  }
-
-  setupDebugOverlay() {
-    const overlay = new DebugOverlay({
-      camera: null,
-      effects: null,
-      lights: null,
-      materials: null,
-      renderer: null,
-    });
   }
 }
 
